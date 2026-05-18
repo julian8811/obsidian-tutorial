@@ -433,6 +433,190 @@
     display: inline-block;
   }
 
+  /* ─── UI Mockup ─── */
+  .ui-mockup {
+    background: #16162a;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin: 16px 0;
+    width: 100%;
+  }
+  .ui-mockup svg { display: block; width: 100%; height: auto; }
+  .mockup-callout {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 12px 0;
+  }
+  .callout-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 12px 0;
+  }
+  @media (max-width: 520px) { .callout-grid { grid-template-columns: 1fr; } }
+  .callout-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .callout-item .num {
+    background: var(--accent);
+    color: #1e1e2e;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .callout-item .content h4 { font-size: .88rem; color: var(--text); margin-bottom: 2px; }
+  .callout-item .content p { font-size: .78rem; color: var(--text2); margin: 0; }
+
+  /* ─── Graph Controls ─── */
+  .graph-toolbar {
+    display: flex;
+    gap: 8px;
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .graph-toolbar .g-btn {
+    font-family: var(--font);
+    font-size: .78rem;
+    padding: 5px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--text2);
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .graph-toolbar .g-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .graph-toolbar .g-btn.active { background: var(--accent); color: #1e1e2e; border-color: var(--accent); }
+  .graph-toolbar .g-btn.g-btn-danger.active { background: var(--pink); border-color: var(--pink); color: #1e1e2e; }
+  .graph-toolbar .g-label {
+    font-size: .75rem;
+    color: var(--text2);
+    margin-left: auto;
+  }
+  .graph-toolbar .g-label strong { color: var(--accent); }
+
+  .graph-builder {
+    background: #12122a;
+    border-top: 1px solid var(--border);
+    padding: 12px 14px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .graph-builder .gb-note {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 4px 12px;
+    font-size: .8rem;
+    color: var(--text2);
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .graph-builder .gb-note:hover { border-color: var(--accent); color: var(--accent); }
+  .graph-builder .gb-info {
+    font-size: .75rem;
+    color: var(--text2);
+    margin-left: auto;
+  }
+
+  /* ─── Vis Demo (link flow) ─── */
+  .vis-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 20px;
+    background: #16162a;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin: 16px 0;
+    flex-wrap: wrap;
+  }
+  .vis-flow .vf-note {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 20px;
+    font-size: .88rem;
+    color: var(--text);
+    text-align: center;
+    transition: all .3s;
+    min-width: 100px;
+  }
+  .vis-flow .vf-note.linked { border-color: var(--accent); box-shadow: 0 0 20px rgba(166,136,255,.2); }
+  .vis-flow .vf-note.active-link { border-color: var(--cyan); }
+  .vis-flow .vf-arrow {
+    font-size: 1.5rem;
+    color: var(--text2);
+    transition: all .3s;
+  }
+  .vis-flow .vf-arrow.active { color: var(--accent); transform: scale(1.3); }
+
+  .vis-flow-hint {
+    text-align: center;
+    font-size: .78rem;
+    color: var(--text2);
+    margin-top: -8px;
+    margin-bottom: 12px;
+  }
+
+  /* ─── Screenshot-style steps ─── */
+  .ss-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .ss-step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+  }
+  .ss-step .ss-num {
+    background: var(--accent2);
+    color: white;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: .82rem;
+    flex-shrink: 0;
+  }
+  .ss-step .ss-content h4 { font-size: .9rem; color: var(--text); margin-bottom: 3px; }
+  .ss-step .ss-content p { font-size: .82rem; color: var(--text2); margin: 0; line-height: 1.5; }
+  .ss-step .ss-content code {
+    font-size: .82em;
+    background: rgba(166,136,255,.12);
+    color: var(--accent);
+    padding: 1px 6px;
+    border-radius: 4px;
+  }
+
   /* ─── Tag Cloud ─── */
   .tag-cloud {
     display: flex;
@@ -597,9 +781,117 @@ let completed = new Set();
 let graphNodes = [];
 let graphEdges = [];
 let graphAnimId = null;
+let graphRotating = false;
+let graphHighlighted = null;
+let graphBuildStep = 0;
 
 // Links demo state
 let linkedNotes = new Set();
+
+// ═══════════════════════════════════════════════════════════════
+//  SVG MOCKUP GENERATORS
+// ═══════════════════════════════════════════════════════════════
+
+function generateObsidianMockup() {
+  return `<svg viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="420" rx="6" fill="#1a1a2e"/>
+  <!-- Title bar -->
+  <rect x="0" y="0" width="800" height="34" rx="6" fill="#222240"/>
+  <rect x="0" y="28" width="800" height="6" fill="#222240"/>
+  <circle cx="16" cy="17" r="5" fill="#ff5f56"/>
+  <circle cx="32" cy="17" r="5" fill="#ffbd2e"/>
+  <circle cx="48" cy="17" r="5" fill="#27c93f"/>
+  <text x="72" y="21" fill="#8888aa" font-size="11" font-family="Inter,sans-serif">Mi Vault — Obsidian</text>
+  <!-- Tab bar -->
+  <rect x="0" y="34" width="800" height="28" fill="#1e1e34"/>
+  <rect x="10" y="36" width="100" height="24" rx="4" fill="#2a2a44"/>
+  <text x="24" y="52" fill="#a688ff" font-size="11" font-family="Inter,sans-serif">📄 Inicio.md</text>
+  <rect x="116" y="36" width="80" height="24" rx="4" fill="#222240"/>
+  <text x="130" y="52" fill="#8888aa" font-size="11" font-family="Inter,sans-serif">Notas.md</text>
+  <!-- Left panel - File explorer -->
+  <rect x="0" y="62" width="180" height="328" fill="#1a1a2e"/>
+  <rect x="0" y="62" width="180" height="1" fill="#2a2a44"/>
+  <text x="10" y="82" fill="#8888aa" font-size="10" font-family="Inter,sans-serif" font-weight="600">EXPLORADOR</text>
+  <!-- File tree -->
+  <text x="14" y="104" fill="#a688ff" font-size="12" font-family="Inter,sans-serif">📁 Ciencias</text>
+  <text x="28" y="122" fill="#8888aa" font-size="11" font-family="Inter,sans-serif">  📄 Física.md</text>
+  <text x="28" y="138" fill="#8888aa" font-size="11" font-family="Inter,sans-serif">  📄 Química.md</text>
+  <text x="14" y="158" fill="#a688ff" font-size="12" font-family="Inter,sans-serif">📁 Historia</text>
+  <text x="28" y="176" fill="#8888aa" font-size="11" font-family="Inter,sans-serif">  📄 Roma.md</text>
+  <text x="14" y="196" fill="#a688ff" font-size="12" font-family="Inter,sans-serif">📁 Programación</text>
+  <text x="28" y="214" fill="#8888aa" font-size="11" font-family="Inter,sans-serif">  📄 Algoritmos.md</text>
+  <text x="14" y="238" fill="#c8c8e0" font-size="12" font-family="Inter,sans-serif">📄 Nota Activa.md</text>
+  <rect x="10" y="228" width="160" height="22" rx="4" fill="rgba(166,136,255,0.12)" stroke="#a688ff" stroke-width="1"/>
+  <!-- Center - Editor -->
+  <rect x="180" y="62" width="440" height="328" fill="#1e1e34"/>
+  <text x="192" y="90" fill="#a688ff" font-size="14" font-weight="700" font-family="Inter,sans-serif"># Radiactividad</text>
+  <text x="192" y="114" fill="#e0e0f0" font-size="12" font-family="Inter,sans-serif">La radiactividad fue descubierta por</text>
+  <text x="192" y="132" fill="#a688ff" font-size="12" font-family="Inter,sans-serif" font-weight="600">[[Marie Curie]]</text>
+  <text x="314" y="132" fill="#e0e0f0" font-size="12" font-family="Inter,sans-serif">en 1898.</text>
+  <text x="192" y="152" fill="#e0e0f0" font-size="12" font-family="Inter,sans-serif">El elemento</text>
+  <text x="274" y="152" fill="#a688ff" font-size="12" font-family="Inter,sans-serif" font-weight="600">[[Polonio]]</text>
+  <text x="378" y="152" fill="#e0e0f0" font-size="12" font-family="Inter,sans-serif">fue nombrado así</text>
+  <text x="192" y="170" fill="#e0e0f0" font-size="12" font-family="Inter,sans-serif">en honor a su tierra natal.</text>
+  <text x="192" y="196" fill="#7ecf8a" font-size="11" font-family="Inter,sans-serif">#ciencia #física #historia</text>
+  <!-- Cursor blink -->
+  <rect x="192" y="208" width="2" height="14" fill="#a688ff" opacity="0.7">
+    <animate attributeName="opacity" values="0.7;0.2;0.7" dur="1.2s" repeatCount="indefinite"/>
+  </rect>
+  <!-- Right panel - Backlinks -->
+  <rect x="620" y="62" width="180" height="328" fill="#1a1a2e"/>
+  <rect x="620" y="62" width="180" height="1" fill="#2a2a44"/>
+  <text x="630" y="82" fill="#8888aa" font-size="10" font-family="Inter,sans-serif" font-weight="600">BACKLINKS</text>
+  <rect x="628" y="92" width="164" height="50" rx="4" fill="#2a2a44"/>
+  <text x="636" y="108" fill="#a688ff" font-size="11" font-family="Inter,sans-serif">📄 Marie Curie</text>
+  <text x="636" y="124" fill="#8888aa" font-size="10" font-family="Inter,sans-serif">"...descubrió la radiactividad..."</text>
+  <rect x="628" y="146" width="164" height="50" rx="4" fill="#2a2a44"/>
+  <text x="636" y="162" fill="#a688ff" font-size="11" font-family="Inter,sans-serif">📄 Premios Nobel</text>
+  <text x="636" y="178" fill="#8888aa" font-size="10" font-family="Inter,sans-serif">"...Nobel por estudios de radiactividad..."</text>
+  <!-- Status bar -->
+  <rect x="0" y="390" width="800" height="30" fill="#222240"/>
+  <text x="10" y="408" fill="#8888aa" font-size="10" font-family="Inter,sans-serif">127 palabras · 3 enlaces · Plugin: Grafo activo</text>
+  <text x="750" y="408" fill="#7ecf8a" font-size="10" font-family="Inter,sans-serif">◉ Guardado</text>
+</svg>`;
+}
+
+function generateBacklinksMockup() {
+  return `<svg viewBox="0 0 800 240" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="240" rx="6" fill="#1a1a2e"/>
+  <!-- Note being read -->
+  <rect x="14" y="14" width="370" height="210" rx="6" fill="#1e1e34" stroke="#2a2a44" stroke-width="1"/>
+  <text x="24" y="40" fill="#a688ff" font-size="13" font-weight="700" font-family="Inter,sans-serif">🧪 Radiactividad</text>
+  <text x="24" y="62" fill="#e0e0f0" font-size="11" font-family="Inter,sans-serif">La radiactividad fue descubierta por</text>
+  <rect x="258" y="72" width="90" height="18" rx="4" fill="rgba(166,136,255,0.15)"/>
+  <text x="262" y="86" fill="#a688ff" font-size="11" font-weight="600" font-family="Inter,sans-serif">[[Marie Curie]]</text>
+  <text x="24" y="106" fill="#e0e0f0" font-size="11" font-family="Inter,sans-serif">El elemento</text>
+  <rect x="98" y="116" width="72" height="18" rx="4" fill="rgba(166,136,255,0.15)"/>
+  <text x="102" y="130" fill="#a688ff" font-size="11" font-weight="600" font-family="Inter,sans-serif">[[Polonio]]</text>
+  <text x="176" y="130" fill="#e0e0f0" font-size="11" font-family="Inter,sans-serif">es radiactivo.</text>
+  <text x="24" y="158" fill="#7ecf8a" font-size="10" font-family="Inter,sans-serif">#ciencia #física</text>
+  <!-- Arrow -->
+  <text x="398" y="120" fill="#8888aa" font-size="20" font-family="Inter,sans-serif">↩️</text>
+  <!-- Backlinks panel -->
+  <rect x="416" y="14" width="370" height="210" rx="6" fill="#222240" stroke="#2a2a44" stroke-width="1"/>
+  <text x="426" y="38" fill="#8888aa" font-size="10" font-family="Inter,sans-serif" font-weight="600">BACKLINKS — 2 resultados</text>
+  <text x="426" y="52" fill="#7ecf8a" font-size="11" font-family="Inter,sans-serif">▼ Expandido</text>
+  <!-- Backlink 1 -->
+  <rect x="426" y="62" width="348" height="60" rx="4" fill="#2a2a44"/>
+  <text x="434" y="78" fill="#a688ff" font-size="12" font-family="Inter,sans-serif" font-weight="600">📄 Marie Curie</text>
+  <text x="434" y="94" fill="#8888aa" font-size="10" font-family="Inter,sans-serif">"Marie y Pierre investigaron la</text>
+  <rect x="602" y="100" width="90" height="16" rx="3" fill="rgba(166,136,255,0.12)"/>
+  <text x="606" y="113" fill="#a688ff" font-size="9" font-weight="600" font-family="Inter,sans-serif">radiactividad</text>
+  <text x="434" y="116" fill="#8888aa" font-size="10" font-family="Inter,sans-serif">a fondo"</text>
+  <!-- Backlink 2 -->
+  <rect x="426" y="126" width="348" height="60" rx="4" fill="#2a2a44"/>
+  <text x="434" y="142" fill="#a688ff" font-size="12" font-family="Inter,sans-serif" font-weight="600">📄 Premios Nobel</text>
+  <text x="434" y="158" fill="#8888aa" font-size="10" font-family="Inter,sans-serif">"Recibió el Nobel por estudios de</text>
+  <rect x="626" y="164" width="90" height="16" rx="3" fill="rgba(166,136,255,0.12)"/>
+  <text x="630" y="177" fill="#a688ff" font-size="9" font-weight="600" font-family="Inter,sans-serif">radiactividad</text>
+  <text x="434" y="180" fill="#8888aa" font-size="10" font-family="Inter,sans-serif">"</text>
+  <!-- Highlight callout -->
+  <text x="426" y="210" fill="#f5b97f" font-size="9" font-family="Inter,sans-serif">⚡ Los backlinks son automáticos — no hay que hacer nada</text>
+</svg>`;
+}
 
 // ═══════════════════════════════════════════════════════════════
 //  RENDER
@@ -713,6 +1005,39 @@ function stepWelcome() {
       <li><strong>◉ Grafo de conocimiento:</strong> visualizá cómo se relacionan tus ideas.</li>
       <li><strong>🔌 100% extensible:</strong> cientos de plugins para adaptarlo a tu flujo.</li>
     </ul>
+
+    <div class="ui-mockup">${generateObsidianMockup()}</div>
+
+    <div class="callout-grid">
+      <div class="callout-item">
+        <span class="num">1</span>
+        <div class="content">
+          <h4>📁 Explorador de archivos</h4>
+          <p>Tus notas .md en una estructura de carpetas. Arrastrá, soltá, organizá.</p>
+        </div>
+      </div>
+      <div class="callout-item">
+        <span class="num">2</span>
+        <div class="content">
+          <h4>✏️ Editor + Vista previa</h4>
+          <p>Escribí en Markdown, toggleá a vista renderizada con <kbd style="font-size:.72rem;">Ctrl/Cmd+E</kbd>.</p>
+        </div>
+      </div>
+      <div class="callout-item">
+        <span class="num">3</span>
+        <div class="content">
+          <h4>🔗 Enlaces [[wiki]]</h4>
+          <p>Escribí <code>[[</code> y Obsidian te autocompleta el nombre de cualquier nota.</p>
+        </div>
+      </div>
+      <div class="callout-item">
+        <span class="num">4</span>
+        <div class="content">
+          <h4>↩️ Panel de Backlinks</h4>
+          <p>Mostrá qué otras notas linkean a la nota actual — en tiempo real.</p>
+        </div>
+      </div>
+    </div>
 
     <div class="tip">
       <strong>💡 Filosofía:</strong> Obsidian se basa en el principio de <em>atomicidad</em> — ideas pequeñas, bien definidas, intensamente conectadas. Como ladrillos de LEGO.
@@ -903,7 +1228,14 @@ Ver [[Cuántica#Principio de incertidumbre]]
       <strong>💡 Tip:</strong> Cuando empezás a escribir <code>[[</code>, Obsidian te muestra un autocompletado con todas tus notas. No necesitás recordar nombres exactos.
     </div>
 
-    <p><strong>👉 Cliqueá las notas para conectarlas</strong> y creá tu propia red de conocimiento:</p>
+    <div class="vis-flow" id="visFlow">
+      <div class="vf-note active-link" id="vfCurrent">📄 Nota Actual</div>
+      <div class="vf-arrow" id="vfArrow">⟶</div>
+      <div class="vf-note" id="vfTarget">📄 ?</div>
+    </div>
+    <p class="vis-flow-hint" id="visFlowHint">👆 Cliqueá una nota abajo para linkearla desde "Nota Actual"</p>
+
+    <p><strong>👉 Cliqueá las notas para conectarlas</strong> y creá tu propia red de conocimiento. Cada clic crea un <code>[[enlace]]</code>:</p>
 
     <div class="link-sim" id="linkSim">
       <div class="note-tag" data-note="Marie Curie" onclick="toggleLink(this)">Marie Curie <span class="badge">0</span></div>
@@ -935,28 +1267,30 @@ function stepBacklinks() {
       <strong>🔍 Esto es revolucionario:</strong> Mientras leés una nota, el panel de backlinks te muestra <em>todas las otras notas que mencionan a esta</em>. Descubrís conexiones que ni sabías que existían.
     </div>
 
-    <p>En Obsidian, los backlinks aparecen en un panel lateral. Acá te muestro cómo funciona:</p>
+    <p>En Obsidian, los backlinks aparecen en un panel lateral. Acá te muestro cómo funciona con un mockup visual:</p>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0;">
-      <div style="background:#16162a;border:1px solid var(--border);border-radius:8px;padding:14px;">
-        <div style="font-size:.78rem;color:var(--text2);margin-bottom:8px;">📄 Nota actual</div>
-        <div style="font-size:.9rem;font-weight:600;color:var(--accent);margin-bottom:6px;">🧪 Radiactividad</div>
-        <div style="font-size:.82rem;color:var(--text);line-height:1.5;">
-          La radiactividad fue descubierta por [[Marie Curie]].
-          El [[Polonio]] es un elemento radiactivo.
+    <div class="ui-mockup">${generateBacklinksMockup()}</div>
+
+    <div class="ss-steps">
+      <div class="ss-step">
+        <span class="ss-num">1</span>
+        <div class="ss-content">
+          <h4>Escribí <code>[[Nombre de Nota]]</code></h4>
+          <p>El enlace se crea al instante. No hay "guardar" — Obsidian guarda solo en tiempo real.</p>
         </div>
       </div>
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;">
-        <div style="font-size:.78rem;color:var(--text2);margin-bottom:8px;">↩ Backlinks (2)</div>
-        <div id="backlinkList">
-          <div style="padding:6px 0;border-bottom:1px solid var(--border);font-size:.85rem;">
-            <span style="color:var(--accent);font-weight:600;">📄 Marie Curie</span>
-            <div style="color:var(--text2);font-size:.78rem;margin-top:2px;">"...descubrió la <em>radiactividad</em>..."</div>
-          </div>
-          <div style="padding:6px 0;font-size:.85rem;">
-            <span style="color:var(--accent);font-weight:600;">📄 Premios Nobel</span>
-            <div style="color:var(--text2);font-size:.78rem;margin-top:2px;">"...compartió el Nobel con otros científicos por estudios de <em>radiactividad</em>..."</div>
-          </div>
+      <div class="ss-step">
+        <span class="ss-num">2</span>
+        <div class="ss-content">
+          <h4>La nota destino ahora tiene un backlink</h4>
+          <p>Sin hacer nada más. Abrí "Maria Curie" y vas a ver que "Radiactividad" aparece en su panel de backlinks.</p>
+        </div>
+      </div>
+      <div class="ss-step">
+        <span class="ss-num">3</span>
+        <div class="ss-content">
+          <h4>Modo expandido vs. colapsado</h4>
+          <p>Toggleá entre ver solo el nombre de la nota que linkea (colapsado) o el contexto alrededor del enlace (expandido).</p>
         </div>
       </div>
     </div>
@@ -1039,21 +1373,36 @@ function stepGraph() {
       <strong>◉ No es una feature decorativa:</strong> El grafo te permite descubrir <em>clusters</em> de conocimiento, notas huérfanas (sin conexiones), y patrones en tu forma de pensar que de otra forma serían invisibles.
     </div>
 
-    <p>Acá abajo tenés un grafo <strong>interactivo</strong> — arrastrá los nodos y explorá las conexiones:</p>
+    <p><strong>🤖 Demo automática:</strong> Hacé clic en "Construir grafo" para ver cómo crece una red de conocimiento desde cero. O explorá el grafo completo abajo.</p>
 
     <div class="graph-container" id="graphContainer">
+      <div class="graph-toolbar">
+        <button class="g-btn" id="gbToggleRotate" onclick="toggleGraphRotate()">⟳ Auto-rotar</button>
+        <button class="g-btn" id="gbResetView" onclick="resetGraphView()">⊙ Reset</button>
+        <button class="g-btn g-btn-danger" id="gbBuildDemo" onclick="startGraphBuildDemo()">▸ Construir grafo</button>
+        <span class="g-label" id="graphNodeCount">Nodos: <strong id="nodeCountDisplay">9</strong></span>
+      </div>
       <canvas id="graphCanvas"></canvas>
+      <div class="graph-builder" id="graphBuilder">
+        <span style="font-size:.78rem;color:var(--text2);">📌 Hacé clic para agregar notas que se conectan:</span>
+        <span class="gb-note" onclick="graphAddNote('Fotosíntesis')">🌿 Fotosíntesis</span>
+        <span class="gb-note" onclick="graphAddNote('Cuántica')">⚛ Cuántica</span>
+        <span class="gb-note" onclick="graphAddNote('Relatividad')">🌌 Relatividad</span>
+        <span class="gb-note" onclick="graphAddNote('Genética')">🧬 Genética</span>
+        <span class="gb-note" onclick="graphAddNote('Química')">⚗ Química</span>
+        <span class="gb-info" id="gbInfo">Hacé clic en un tema para agregarlo al grafo</span>
+      </div>
       <div class="graph-legend">
         <span><span class="dot" style="background:var(--accent);"></span> Nota activa</span>
         <span><span class="dot" style="background:var(--green);"></span> Conectada</span>
         <span><span class="dot" style="background:var(--text2);"></span> Sin conexión</span>
         <span><span class="dot" style="background:var(--pink);width:4px;height:4px;border-radius:2px;"></span> Enlace</span>
-        <span style="color:var(--text2);">🖱 Arrastrá los nodos</span>
+        <span style="color:var(--text2);">🖱 Arrastrá los nodos · Cliqueá un nodo para resaltar conexiones</span>
       </div>
     </div>
 
     <p style="margin-top:8px;font-size:.88rem;color:var(--text2);">
-      💡 Este grafo representa un mini vault de ejemplo. En tu Obsidian real, cada punto es una nota tuya.
+      💡 El grafo de Obsidian se construye solo a partir de los enlaces <code>[[wiki]]</code> que creás en tus notas. Mientras más conectás, más interesante se vuelve.
     </p>
   `;
 }
@@ -1300,6 +1649,29 @@ function toggleLink(el) {
   }
   updateLinkBadges();
   updateLinkResult();
+  updateVisFlow(el);
+}
+
+function updateVisFlow(el) {
+  const vfTarget = document.getElementById('vfTarget');
+  const vfArrow = document.getElementById('vfArrow');
+  const vfHint = document.getElementById('visFlowHint');
+  if (!vfTarget || !vfArrow || !vfHint) return;
+
+  const note = el.dataset.note;
+  const isLinked = linkedNotes.has(note);
+
+  if (isLinked) {
+    vfTarget.textContent = '📄 ' + note;
+    vfTarget.className = 'vf-note linked';
+    vfArrow.className = 'vf-arrow active';
+    vfHint.textContent = '✅ ' + note + ' linkeada desde Nota Actual — backlink generado automáticamente';
+  } else {
+    vfTarget.textContent = '📄 ?';
+    vfTarget.className = 'vf-note';
+    vfArrow.className = 'vf-arrow';
+    vfHint.textContent = '👆 Cliqueá una nota abajo para linkearla desde "Nota Actual"';
+  }
 }
 
 function updateLinkBadges() {
@@ -1376,35 +1748,10 @@ function filterTag(el) {
 }
 
 // ═══════════════════════════════════════════════════════════════
-//  GRAPH — force-directed canvas
+//  GRAPH — force-directed canvas with controls
 // ═══════════════════════════════════════════════════════════════
 
-const graphData = {
-  nodes: [
-    { id: 'active', label: 'Nota Actual', group: 'active' },
-    { id: 'marie', label: 'Marie Curie', group: 'connected' },
-    { id: 'radio', label: 'Radiactividad', group: 'connected' },
-    { id: 'polonio', label: 'Polonio', group: 'connected' },
-    { id: 'nobel', label: 'Premios Nobel', group: 'connected' },
-    { id: 'fisica', label: 'Física Cuántica', group: 'lonely' },
-    { id: 'fotosin', label: 'Fotosíntesis', group: 'lonely' },
-    { id: 'adn', label: 'ADN y Genética', group: 'lonely' },
-    { id: 'revol', label: 'Rev. Francesa', group: 'lonely' },
-    { id: 'algo', label: 'Algoritmos', group: 'lonely' },
-  ],
-  edges: [
-    { s: 'active', t: 'marie' },
-    { s: 'active', t: 'radio' },
-    { s: 'active', t: 'polonio' },
-    { s: 'marie', t: 'radio' },
-    { s: 'marie', t: 'polonio' },
-    { s: 'marie', t: 'nobel' },
-    { s: 'radio', t: 'polonio' },
-    { s: 'radio', t: 'fisica' },
-  ]
-};
-
-const nodeColors = { active: '#a688ff', connected: '#7ecf8a', lonely: '#6a6a8a' };
+const nodeColors = { active: '#a688ff', connected: '#7ecf8a', lonely: '#6a6a8a', addable: '#f5b97f' };
 let graphRunning = false;
 
 function initGraph() {
@@ -1412,11 +1759,10 @@ function initGraph() {
   if (!canvas) return;
 
   const container = document.getElementById('graphContainer');
-  const rect = container.getBoundingClientRect();
   const W = canvas.parentElement.clientWidth;
   const H = canvas.parentElement.clientHeight || 340;
 
-  canvas.width = W * 2; // Retina
+  canvas.width = W * 2;
   canvas.height = H * 2;
   canvas.style.width = W + 'px';
   canvas.style.height = H + 'px';
@@ -1426,14 +1772,14 @@ function initGraph() {
   // Init node positions if not set
   if (!graphNodes.length) {
     const cx = W / 2, cy = H / 2;
-    graphNodes = graphData.nodes.map((n, i) => ({
+    graphNodes = graphData.nodes.map((n) => ({
       ...n,
       x: cx + (Math.random() - 0.5) * (W * 0.6),
       y: cy + (Math.random() - 0.5) * (H * 0.6),
       vx: 0, vy: 0,
-      r: n.id === 'active' ? 14 : 9,
+      r: n.group === 'active' ? 14 : (n.group === 'addable' ? 7 : 9),
     }));
-    graphEdges = graphData.edges;
+    graphEdges = [...graphData.edges];
   }
 
   if (graphRunning) return;
@@ -1453,23 +1799,31 @@ function initGraph() {
     for (let i = graphNodes.length - 1; i >= 0; i--) {
       const n = graphNodes[i];
       const dx = mx - n.x, dy = my - n.y;
-      if (dx * dx + dy * dy < (n.r + 6) * (n.r + 6)) return n;
+      if (dx * dx + dy * dy < (n.r + 8) * (n.r + 8)) return n;
     }
     return null;
   };
 
-  canvas.onmousedown = (e) => {
+  const handleDown = (e) => {
     const m = getMouse(e);
     const hit = hitTest(m.x, m.y);
     if (hit) {
+      // Click to highlight (not drag)
+      if (graphHighlighted === hit.id) {
+        graphHighlighted = null;
+      } else {
+        graphHighlighted = hit.id;
+      }
       isDragging = true;
       dragNode = hit;
       dragOffX = m.x - hit.x;
       dragOffY = m.y - hit.y;
+    } else {
+      graphHighlighted = null;
     }
   };
 
-  window.onmousemove = (e) => {
+  const handleMove = (e) => {
     if (!isDragging || !dragNode) return;
     const m = getMouse(e);
     dragNode.x = m.x - dragOffX;
@@ -1478,51 +1832,38 @@ function initGraph() {
     dragNode.vy = 0;
   };
 
-  window.onmouseup = () => {
+  const handleUp = () => {
     isDragging = false;
     dragNode = null;
   };
 
-  // touch
-  canvas.ontouchstart = (e) => {
-    e.preventDefault();
-    const m = getMouse(e);
-    const hit = hitTest(m.x, m.y);
-    if (hit) {
-      isDragging = true;
-      dragNode = hit;
-      dragOffX = m.x - hit.x;
-      dragOffY = m.y - hit.y;
-    }
-  };
-  canvas.ontouchmove = (e) => {
-    e.preventDefault();
-    if (!isDragging || !dragNode) return;
-    const m = getMouse(e);
-    dragNode.x = m.x - dragOffX;
-    dragNode.y = m.y - dragOffY;
-    dragNode.vx = 0;
-    dragNode.vy = 0;
-  };
-  canvas.ontouchend = (e) => {
-    e.preventDefault();
-    isDragging = false;
-    dragNode = null;
-  };
+  canvas.onmousedown = handleDown;
+  window.onmousemove = handleMove;
+  window.onmouseup = handleUp;
+
+  // Touch support
+  canvas.ontouchstart = (e) => { e.preventDefault(); handleDown(e); };
+  canvas.ontouchmove = (e) => { e.preventDefault(); handleMove(e); };
+  canvas.ontouchend = (e) => { e.preventDefault(); handleUp(); };
 
   function simulate() {
-    // Forces
     const Ww = W, Hh = H;
     const centerX = Ww / 2, centerY = Hh / 2;
     const repulsion = 6000;
     const attraction = 0.003;
-    const damping = 0.85;
+    const damping = 0.9;
     const minDist = 35;
+    const rotationSpeed = graphRotating ? 0.0006 : 0;
 
-    // Center gravity
+    // Center gravity + rotation
     for (const n of graphNodes) {
       n.vx += (centerX - n.x) * 0.0005;
       n.vy += (centerY - n.y) * 0.0005;
+      if (rotationSpeed) {
+        const rx = n.x - centerX, ry = n.y - centerY;
+        n.vx += -ry * rotationSpeed;
+        n.vy += rx * rotationSpeed;
+      }
     }
 
     // Repulsion between all nodes
@@ -1561,63 +1902,276 @@ function initGraph() {
       n.vy *= damping;
       n.x += n.vx;
       n.y += n.vy;
-      // Bounds
       n.x = Math.max(20, Math.min(Ww - 20, n.x));
       n.y = Math.max(20, Math.min(Hh - 20, n.y));
     }
 
-    draw(ctx, W, Hh);
+    drawGraph(ctx, W, Hh);
     if (graphRunning) graphAnimId = requestAnimationFrame(simulate);
   }
 
   simulate();
 }
 
-function draw(ctx, W, H) {
+function drawGraph(ctx, W, H) {
   ctx.clearRect(0, 0, W, H);
+
+  // Find highlighted node's connections
+  const highlightedEdges = new Set();
+  if (graphHighlighted) {
+    for (const e of graphEdges) {
+      if (e.s === graphHighlighted || e.t === graphHighlighted) {
+        highlightedEdges.add(e.s + '->' + e.t);
+        highlightedEdges.add(e.t + '->' + e.s);
+      }
+    }
+  }
 
   // Edges
   for (const e of graphEdges) {
     const a = graphNodes.find(n => n.id === e.s);
     const b = graphNodes.find(n => n.id === e.t);
     if (!a || !b) continue;
+    const isHighlighted = graphHighlighted && (highlightedEdges.has(e.s + '->' + e.t));
     ctx.beginPath();
     ctx.moveTo(a.x, a.y);
     ctx.lineTo(b.x, b.y);
-    ctx.strokeStyle = 'rgba(166,136,255,0.2)';
-    ctx.lineWidth = 1.5;
+    ctx.strokeStyle = isHighlighted ? 'rgba(166,136,255,0.6)' : 'rgba(166,136,255,0.15)';
+    ctx.lineWidth = isHighlighted ? 2.5 : 1.2;
     ctx.stroke();
   }
 
   // Nodes
   for (const n of graphNodes) {
+    const isHighlighted = graphHighlighted === n.id;
+    const isConnected = graphHighlighted && highlightedEdges.has(n.id + '->' + graphHighlighted);
+
+    let baseColor = nodeColors[n.group] || '#6a6a8a';
+    let alpha = '30';
+    let r = n.r;
+    let glow = n.r * 3;
+    let borderColor = null;
+
+    if (isHighlighted) {
+      baseColor = '#a688ff';
+      alpha = '50';
+      r = n.r * 1.25;
+      glow = n.r * 5;
+      borderColor = '#fff';
+    } else if (isConnected) {
+      alpha = '45';
+      r = n.r * 1.1;
+      glow = n.r * 4;
+    } else if (graphHighlighted) {
+      // Dim unconnected nodes
+      alpha = '12';
+      r = n.r * 0.85;
+    }
+
     // Glow
-    const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r * 3);
-    const baseColor = nodeColors[n.group] || '#6a6a8a';
-    grad.addColorStop(0, baseColor + '30');
+    const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, glow);
+    grad.addColorStop(0, baseColor + alpha);
     grad.addColorStop(1, 'transparent');
     ctx.fillStyle = grad;
     ctx.beginPath();
-    ctx.arc(n.x, n.y, n.r * 3, 0, Math.PI * 2);
+    ctx.arc(n.x, n.y, glow, 0, Math.PI * 2);
     ctx.fill();
 
     // Circle
     ctx.beginPath();
-    ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-    ctx.fillStyle = nodeColors[n.group] || '#6a6a8a';
+    ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+    ctx.fillStyle = baseColor;
     ctx.fill();
-    if (n.group === 'active') {
-      ctx.strokeStyle = '#fff';
+    if (borderColor || n.group === 'active') {
+      ctx.strokeStyle = borderColor || '#fff';
       ctx.lineWidth = 2;
       ctx.stroke();
     }
 
     // Label
-    ctx.fillStyle = '#e0e0f0';
+    const labelOpacity = graphHighlighted && !isHighlighted && !isConnected ? '0.35' : '0.9';
+    ctx.fillStyle = `rgba(224,224,240,${labelOpacity})`;
     ctx.font = '11px Inter, system-ui, sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText(n.label, n.x, n.y + n.r + 16);
+    ctx.fillText(n.label, n.x, n.y + r + 16);
+
+    // Highlight ring animation
+    if (isHighlighted) {
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, r + 4, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(166,136,255,0.4)';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([3, 4]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
   }
+
+  // Update node count
+  const countEl = document.getElementById('nodeCountDisplay');
+  if (countEl) countEl.textContent = graphNodes.length;
+}
+
+// ─── Graph controls ───
+
+function toggleGraphRotate() {
+  graphRotating = !graphRotating;
+  document.getElementById('gbToggleRotate').classList.toggle('active', graphRotating);
+}
+
+function resetGraphView() {
+  const canvas = document.getElementById('graphCanvas');
+  if (!canvas) return;
+  const container = document.getElementById('graphContainer');
+  const W = canvas.parentElement.clientWidth;
+  const H = canvas.parentElement.clientHeight || 340;
+  const cx = W / 2, cy = H / 2;
+
+  graphNodes.forEach((n, i) => {
+    const angle = (i / graphNodes.length) * Math.PI * 2;
+    const radius = Math.min(W, H) * 0.3;
+    n.x = cx + Math.cos(angle) * radius + (Math.random() - 0.5) * 20;
+    n.y = cy + Math.sin(angle) * radius + (Math.random() - 0.5) * 20;
+    n.vx = 0;
+    n.vy = 0;
+  });
+  graphHighlighted = null;
+}
+
+function startGraphBuildDemo() {
+  const btn = document.getElementById('gbBuildDemo');
+  if (btn.classList.contains('active')) {
+    btn.classList.remove('active');
+    btn.textContent = '▸ Construir grafo';
+    graphBuildStep = 0;
+    // Reset nodes
+    graphNodes = [];
+    graphEdges = [];
+    const canvas = document.getElementById('graphCanvas');
+    if (canvas) {
+      const W = canvas.parentElement.clientWidth;
+      const H = canvas.parentElement.clientHeight || 340;
+      const cx = W / 2, cy = H / 2;
+      graphNodes = graphData.nodes.map((n) => ({
+        ...n,
+        x: cx + (Math.random() - 0.5) * (W * 0.6),
+        y: cy + (Math.random() - 0.5) * (H * 0.6),
+        vx: 0, vy: 0,
+        r: n.group === 'active' ? 14 : (n.group === 'addable' ? 7 : 9),
+      }));
+      graphEdges = [...graphData.edges];
+    }
+    const info = document.getElementById('gbInfo');
+    if (info) info.textContent = 'Grafo reiniciado';
+    return;
+  }
+
+  btn.classList.add('active');
+  btn.textContent = '⏹ Reiniciar demo';
+  graphBuildStep = 1;
+
+  // Start with just the active node
+  graphNodes = [];
+  graphEdges = [];
+  const canvas = document.getElementById('graphCanvas');
+  if (!canvas) return;
+  const W = canvas.parentElement.clientWidth;
+  const H = canvas.parentElement.clientHeight || 340;
+  const cx = W / 2, cy = H / 2;
+
+  const activeNode = { ...graphData.nodes.find(n => n.id === 'active') };
+  activeNode.x = cx;
+  activeNode.y = cy;
+  activeNode.vx = 0;
+  activeNode.vy = 0;
+  activeNode.r = 14;
+  graphNodes.push(activeNode);
+
+  const info = document.getElementById('gbInfo');
+  if (info) info.textContent = 'Paso 1: Creá "Nota Actual" — todo arranca con una nota';
+
+  // Schedule the build steps
+  const buildSchedule = [
+    { delay: 1500, id: 'marie', label: 'Marie Curie', edgeFrom: 'active', msg: 'Paso 2: Escribí [[Marie Curie]] → aparece la nota conectada' },
+    { delay: 2800, id: 'radio', label: 'Radiactividad', edgeFrom: 'active', msg: 'Paso 3: Creás [[Radiactividad]] — el grafo empieza a crecer' },
+    { delay: 4000, id: 'polonio', label: 'Polonio', edgeFrom: 'marie', msg: 'Paso 4: [[Polonio]] se conecta a Marie Curie — ¡enlaces en cadena!' },
+    { delay: 5300, id: 'nobel', label: 'Premios Nobel', edgeFrom: 'radio', msg: 'Paso 5: Cuantos más [[enlaces]], más conexiones aparecen' },
+    { delay: 6600, id: 'fisica', label: 'Física Cuántica', edgeFrom: 'radio', msg: 'Paso 6: El grafo revela conexiones que no habías planeado' },
+  ];
+
+  buildSchedule.forEach(({ delay, id, label, edgeFrom, msg }) => {
+    setTimeout(() => {
+      const nodeData = graphData.nodes.find(n => n.id === id);
+      if (!nodeData) return;
+      const angle = Math.random() * Math.PI * 2;
+      const dist = Math.min(W, H) * 0.3;
+      graphNodes.push({
+        ...nodeData,
+        x: cx + Math.cos(angle) * dist,
+        y: cy + Math.sin(angle) * dist,
+        vx: 0, vy: 0,
+        r: nodeData.group === 'addable' ? 7 : 9,
+      });
+      graphEdges.push({ s: edgeFrom, t: id });
+
+      // Also add edges from original graphData
+      const extraEdges = graphData.edges.filter(e => e.t === id && graphNodes.find(n => n.id === e.s));
+      extraEdges.forEach(e => {
+        if (!graphEdges.find(g => g.s === e.s && g.t === e.t)) {
+          graphEdges.push(e);
+        }
+      });
+
+      if (info) info.textContent = msg;
+    }, delay);
+  });
+
+  // Final message
+  setTimeout(() => {
+    if (info) {
+      info.textContent = '✅ ¡Grafo construido! Cada nota nueva se conecta automáticamente.';
+    }
+    btn.classList.remove('active');
+    btn.textContent = '▸ Construir grafo';
+    graphBuildStep = 0;
+  }, 8200);
+}
+
+function graphAddNote(label) {
+  const id = label.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  // Check if already in graph
+  if (graphNodes.find(n => n.id === id)) {
+    const info = document.getElementById('gbInfo');
+    if (info) info.textContent = '⚠️ ' + label + ' ya está en el grafo';
+    return;
+  }
+
+  // Find a random existing node to connect to
+  const existingNodes = graphNodes.filter(n => n.group !== 'addable');
+  if (existingNodes.length === 0) return;
+  const target = existingNodes[Math.floor(Math.random() * existingNodes.length)];
+
+  const canvas = document.getElementById('graphCanvas');
+  const W = canvas ? canvas.parentElement.clientWidth : 600;
+  const H = canvas ? canvas.parentElement.clientHeight : 340;
+  const cx = W / 2, cy = H / 2;
+
+  // Position near the target node
+  const angle = Math.random() * Math.PI * 2;
+  const dist = 40 + Math.random() * 60;
+
+  graphNodes.push({
+    id, label,
+    x: target.x + Math.cos(angle) * dist,
+    y: target.y + Math.sin(angle) * dist,
+    vx: 0, vy: 0,
+    r: 9,
+    group: 'connected',
+  });
+  graphEdges.push({ s: target.id, t: id });
+
+  const info = document.getElementById('gbInfo');
+  if (info) info.textContent = '✅ ' + label + ' agregada y conectada a ' + target.label;
 }
 
 // ═══════════════════════════════════════════════════════════════
