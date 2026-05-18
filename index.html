@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aprende Obsidian — Tutorial Interactivo</title>
+<style>
+  /* ─── Reset & Base ─── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #1e1e2e;
+    --surface: #2a2a3e;
+    --surface2: #363650;
+    --border: #3a3a52;
+    --text: #e0e0f0;
+    --text2: #a0a0c0;
+    --accent: #a688ff;
+    --accent2: #7c5cfc;
+    --green: #7ecf8a;
+    --orange: #f5b97f;
+    --pink: #f28fad;
+    --cyan: #7dd4fc;
+    --radius: 10px;
+    --shadow: 0 4px 24px rgba(0,0,0,.4);
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ─── Scrollbar ─── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--border); }
+
+  /* ─── Layout ─── */
+  .container {
+    max-width: 900px;
+    width: 100%;
+    padding: 20px;
+    position: relative;
+  }
+
+  /* ─── Header ─── */
+  header {
+    text-align: center;
+    padding: 32px 20px 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 28px;
+  }
+  header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  header h1 .logo {
+    width: 36px; height: 36px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 800;
+    color: #1e1e2e;
+  }
+  header p {
+    color: var(--text2);
+    margin-top: 6px;
+    font-size: .95rem;
+  }
+
+  /* ─── Progress Bar ─── */
+  .progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding: 0 4px;
+  }
+  .progress-track {
+    flex: 1;
+    height: 6px;
+    background: var(--surface2);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    border-radius: 3px;
+    transition: width .5s ease;
+  }
+  .progress-label {
+    font-size: .8rem;
+    color: var(--text2);
+    white-space: nowrap;
+    font-weight: 500;
+    min-width: 60px;
+    text-align: right;
+  }
+
+  /* ─── Step navigation ─── */
+  .step-nav {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .step-dot {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    background: var(--surface);
+    color: var(--text2);
+    font-size: .75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .25s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .step-dot:hover { border-color: var(--accent); color: var(--accent); }
+  .step-dot.active { background: var(--accent); border-color: var(--accent); color: #1e1e2e; }
+  .step-dot.done { border-color: var(--green); color: var(--green); }
+
+  /* ─── Step Card ─── */
+  .step-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow);
+    display: none;
+    animation: fadeIn .35s ease;
+  }
+  .step-card.visible { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .step-card h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--accent);
+  }
+  .step-card .step-subtitle {
+    font-size: .85rem;
+    color: var(--text2);
+    margin-bottom: 20px;
+  }
+  .step-card p, .step-card li {
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+  .step-card ul, .step-card ol {
+    padding-left: 24px;
+  }
+  .step-card li { margin-bottom: 6px; }
+
+  /* ─── Code / Inline ─── */
+  code {
+    font-family: var(--mono);
+    background: var(--surface2);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: .85em;
+    color: var(--pink);
+  }
+  .code-block {
+    font-family: var(--mono);
+    background: #16162a;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 12px 0;
+    font-size: .88rem;
+    overflow-x: auto;
+    line-height: 1.5;
+    color: var(--text);
+  }
+  .code-block .hl { color: var(--accent); }
+  .code-block .hlg { color: var(--green); }
+  .code-block .hlc { color: var(--cyan); }
+  .code-block .hlo { color: var(--orange); }
+  .code-block .hlp { color: var(--pink); }
+  .code-block .com { color: #6a6a8a; font-style: italic; }
+
+  /* ─── Tip / Info Boxes ─── */
+  .tip {
+    background: rgba(166,136,255,.12);
+    border-left: 3px solid var(--accent);
+    padding: 14px 18px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0;
+    font-size: .92rem;
+  }
+  .tip strong { color: var(--accent); }
+  .tip-green {
+    background: rgba(126,207,138,.12);
+    border-left-color: var(--green);
+  }
+  .tip-green strong { color: var(--green); }
+  .tip-orange {
+    background: rgba(245,185,127,.12);
+    border-left-color: var(--orange);
+  }
+  .tip-orange strong { color: var(--orange); }
+
+  /* ─── Buttons ─── */
+  .btn-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font);
+    font-size: .9rem;
+    font-weight: 600;
+    padding: 10px 22px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all .2s;
+    text-decoration: none;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #1e1e2e;
+  }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+  .btn-secondary {
+    background: var(--surface2);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-secondary:disabled { opacity: .4; cursor: default; transform: none; }
+  .btn-success {
+    background: var(--green);
+    color: #1e1e2e;
+  }
+  .btn-success:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+  /* ─── Markdown Playground ─── */
+  .playground {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 16px 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .playground textarea {
+    font-family: var(--mono);
+    font-size: .85rem;
+    background: #16162a;
+    color: var(--text);
+    border: none;
+    padding: 16px;
+    resize: vertical;
+    min-height: 160px;
+    outline: none;
+    line-height: 1.5;
+  }
+  .playground textarea::placeholder { color: #5a5a7a; }
+  .playground .preview {
+    background: var(--surface);
+    padding: 16px;
+    min-height: 160px;
+    line-height: 1.6;
+    overflow-y: auto;
+    border-left: 1px solid var(--border);
+  }
+  .playground .preview h1 { font-size: 1.4rem; margin-bottom: 6px; }
+  .playground .preview h2 { font-size: 1.15rem; margin-bottom: 4px; }
+  .playground .preview h3 { font-size: 1rem; margin-bottom: 4px; }
+  .playground .preview p { margin-bottom: 8px; }
+  .playground .preview ul, .playground .preview ol { padding-left: 20px; margin-bottom: 8px; }
+  .playground .preview li { margin-bottom: 2px; color: var(--text); }
+  .playground .preview strong { color: var(--text); font-weight: 700; }
+  .playground .preview em { font-style: italic; }
+  .playground .preview code {
+    font-family: var(--mono);
+    background: var(--surface2);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: .82em;
+    color: var(--pink);
+  }
+  .playground .preview blockquote {
+    border-left: 3px solid var(--accent);
+    padding-left: 14px;
+    color: var(--text2);
+    margin-bottom: 8px;
+  }
+  .playground .preview input[type="checkbox"] {
+    margin-right: 6px;
+    accent-color: var(--accent);
+  }
+
+  .play-actions {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .play-actions button {
+    font-family: var(--font);
+    font-size: .78rem;
+    padding: 5px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--text2);
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .play-actions button:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ─── Link Simulation ─── */
+  .link-sim {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 16px 0;
+  }
+  .note-tag {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: all .25s;
+    font-size: .88rem;
+    color: var(--text);
+    user-select: none;
+  }
+  .note-tag:hover { border-color: var(--accent); background: rgba(166,136,255,.08); }
+  .note-tag.linked {
+    border-color: var(--accent);
+    background: rgba(166,136,255,.15);
+    color: var(--accent);
+    box-shadow: 0 0 12px rgba(166,136,255,.15);
+  }
+  .note-tag .badge {
+    display: inline-block;
+    font-size: .7rem;
+    background: var(--accent);
+    color: #1e1e2e;
+    padding: 1px 8px;
+    border-radius: 10px;
+    margin-left: 6px;
+    font-weight: 600;
+  }
+
+  .link-result {
+    background: #16162a;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-top: 12px;
+    font-size: .9rem;
+    min-height: 60px;
+  }
+  .link-result .empty-state {
+    color: var(--text2);
+    font-style: italic;
+  }
+  .link-result .link-item {
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .link-result .link-item:last-child { border: none; }
+  .link-result .link-item .from { color: var(--accent); font-weight: 600; }
+  .link-result .link-item .to { color: var(--cyan); }
+  .link-result .link-item .arrow { color: var(--text2); margin: 0 8px; }
+
+  /* ─── Graph Canvas ─── */
+  .graph-container {
+    background: #16162a;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin: 16px 0;
+    position: relative;
+  }
+  .graph-container canvas {
+    display: block;
+    width: 100%;
+    height: 340px;
+    cursor: move;
+  }
+  .graph-legend {
+    display: flex;
+    gap: 16px;
+    padding: 10px 16px;
+    border-top: 1px solid var(--border);
+    font-size: .78rem;
+    color: var(--text2);
+    flex-wrap: wrap;
+    background: var(--surface);
+  }
+  .graph-legend span { display: flex; align-items: center; gap: 6px; }
+  .graph-legend .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  /* ─── Tag Cloud ─── */
+  .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0;
+  }
+  .tag-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(166,136,255,.1);
+    color: var(--accent);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: .85rem;
+    border: 1px solid rgba(166,136,255,.2);
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .tag-item:hover { background: rgba(166,136,255,.2); }
+  .tag-item .count {
+    background: var(--surface2);
+    color: var(--text2);
+    padding: 0 6px;
+    border-radius: 8px;
+    font-size: .7rem;
+  }
+  .tag-filtered {
+    background: #16162a;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-top: 12px;
+    min-height: 40px;
+  }
+  .tag-filtered .note-row {
+    padding: 4px 0;
+    color: var(--text);
+  }
+  .tag-filtered .note-row .highlight {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* ─── External Link ─── */
+  .ext-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .ext-link:hover { text-decoration: underline; }
+
+  /* ─── Keyboard Shortcuts ─── */
+  .kbd-shortcuts {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 6px 20px;
+    margin: 12px 0;
+    font-size: .9rem;
+  }
+  .kbd-shortcuts kbd {
+    font-family: var(--mono);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: .8rem;
+    color: var(--text);
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 640px) {
+    .container { padding: 12px; }
+    header h1 { font-size: 1.4rem; }
+    .step-card { padding: 20px; }
+    .playground { grid-template-columns: 1fr; }
+    .playground .preview { border-left: none; border-top: 1px solid var(--border); }
+    .step-nav { gap: 6px; }
+    .step-dot { width: 28px; height: 28px; font-size: .7rem; }
+    .btn-group { flex-direction: column; }
+    .graph-container canvas { height: 260px; }
+  }
+
+  /* ─── Completed overlay ─── */
+  .completion-badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(126,207,138,.12);
+    border: 1px solid rgba(126,207,138,.3);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin: 20px 0;
+  }
+  .completion-badge .icon {
+    width: 48px; height: 48px;
+    background: var(--green);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #1e1e2e;
+    flex-shrink: 0;
+  }
+  .completion-badge h3 { color: var(--green); margin-bottom: 4px; }
+  .completion-badge p { color: var(--text2); font-size: .9rem; margin: 0; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <header>
+    <h1><span class="logo">◈</span> Aprende Obsidian</h1>
+    <p>Tutorial interactivo — domina tu segunda mente, paso a paso</p>
+  </header>
+
+  <!-- Progress -->
+  <div class="progress-wrap">
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <span class="progress-label" id="progressLabel">0 / 10</span>
+  </div>
+
+  <!-- Step Dots -->
+  <div class="step-nav" id="stepNav"></div>
+
+  <!-- ──────── STEP TEMPLATES ──────── -->
+  <!-- Cada step se renderiza dinámicamente desde JS, pero el contenedor está acá -->
+  <div id="stepContainer"></div>
+
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+//  TUTORIAL DATA
+// ═══════════════════════════════════════════════════════════════
+
+const STEPS = [
+  { title: '¿Qué es Obsidian?',          icon: '◈' },
+  { title: 'Markdown & Notas',           icon: '✎' },
+  { title: 'Formato de Texto',           icon: 'B' },
+  { title: 'Listas y Checkboxes',        icon: '☑' },
+  { title: 'Enlaces Internos [[ ]]',     icon: '🔗' },
+  { title: 'Backlinks',                  icon: '↩' },
+  { title: 'Tags #',                     icon: '#' },
+  { title: 'Vista de Grafos',            icon: '◉' },
+  { title: 'Búsqueda y Navegación',      icon: '⌕' },
+  { title: 'Próximos Pasos',             icon: '🚀' },
+];
+
+// ═══════════════════════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════════════════════
+
+let current = 0;
+let completed = new Set();
+
+// Graph state
+let graphNodes = [];
+let graphEdges = [];
+let graphAnimId = null;
+
+// Links demo state
+let linkedNotes = new Set();
+
+// ═══════════════════════════════════════════════════════════════
+//  RENDER
+// ═══════════════════════════════════════════════════════════════
+
+function renderDots() {
+  const nav = document.getElementById('stepNav');
+  nav.innerHTML = STEPS.map((s, i) =>
+    `<button class="step-dot${i === current ? ' active' : ''}${completed.has(i) ? ' done' : ''}"
+            data-idx="${i}" title="${s.title}">${i+1}</button>`
+  ).join('');
+  nav.querySelectorAll('.step-dot').forEach(el => {
+    el.addEventListener('click', () => goTo(parseInt(el.dataset.idx)));
+  });
+}
+
+function renderStep() {
+  const s = STEPS[current];
+  const container = document.getElementById('stepContainer');
+  container.innerHTML = buildStepHTML(current);
+  container.querySelector('.step-card')?.classList.add('visible');
+
+  // Update UI
+  renderDots();
+  updateProgress();
+
+  // Init interactive components
+  if (current === 1 || current === 2 || current === 3) initPlayground();
+  if (current === 4) initLinksDemo();
+  if (current === 5) initBacklinksDemo();
+  if (current === 6) initTagsDemo();
+  if (current === 7) initGraph();
+  if (current === 8) initSearchDemo();
+}
+
+function updateProgress() {
+  const pct = ((current + 1) / STEPS.length) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = `${current + 1} / ${STEPS.length}`;
+}
+
+function goTo(idx) {
+  if (idx < 0 || idx >= STEPS.length) return;
+  current = idx;
+  renderStep();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function next() { goTo(current + 1); }
+function prev() { goTo(current - 1); }
+
+// ═══════════════════════════════════════════════════════════════
+//  BUILD STEP HTML
+// ═══════════════════════════════════════════════════════════════
+
+function buildStepHTML(idx) {
+  const isLast = idx === STEPS.length - 1;
+  const isFirst = idx === 0;
+
+  let body = '';
+  let extraNav = '';
+
+  switch (idx) {
+    case 0: body = stepWelcome(); break;
+    case 1: body = stepMarkdown(); break;
+    case 2: body = stepFormatting(); break;
+    case 3: body = stepLists(); break;
+    case 4: body = stepLinks(); break;
+    case 5: body = stepBacklinks(); break;
+    case 6: body = stepTags(); break;
+    case 7: body = stepGraph(); break;
+    case 8: body = stepSearch(); break;
+    case 9: body = stepNext(); break;
+  }
+
+  if (idx === 99) { // special: completion shown elsewhere
+    body = '';
+  }
+
+  // Mark as completed if viewing (visto)
+  if (!completed.has(idx)) completed.add(idx);
+
+  return `<div class="step-card">
+    <h2>${STEPS[idx].icon} ${STEPS[idx].title}</h2>
+    <p class="step-subtitle">Paso ${idx+1} de ${STEPS.length}</p>
+    ${body}
+    <div class="btn-group">
+      ${!isFirst ? `<button class="btn btn-secondary" onclick="prev()">← Anterior</button>` : ''}
+      ${!isLast ? `<button class="btn btn-primary" onclick="next()">Siguiente →</button>`
+                : `<button class="btn btn-success" onclick="showCompletion()">🎉 ¡Tutorial completo!</button>`}
+    </div>
+    ${extraNav}
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  STEP 0 — WELCOME
+// ═══════════════════════════════════════════════════════════════
+
+function stepWelcome() {
+  return `
+    <div class="tip tip-green">
+      <strong>📝 Nota al pie:</strong> Este tutorial es 100% interactivo. Escribí, cliqueá, experimentá — no hay riesgo de romper nada.
+    </div>
+
+    <p><strong>Obsidian</strong> es una aplicación para tomar notas y construir una base de conocimiento personal. Pero es mucho más que un editor de texto:</p>
+
+    <ul>
+      <li><strong>📁 Local primero:</strong> tus notas son archivos de texto plano en tu computadora. Son tuyas, siempre.</li>
+      <li><strong>🔗 Hipervínculos entre notas:</strong> conectá ideas como si fueran páginas de una wiki personal.</li>
+      <li><strong>◉ Grafo de conocimiento:</strong> visualizá cómo se relacionan tus ideas.</li>
+      <li><strong>🔌 100% extensible:</strong> cientos de plugins para adaptarlo a tu flujo.</li>
+    </ul>
+
+    <div class="tip">
+      <strong>💡 Filosofía:</strong> Obsidian se basa en el principio de <em>atomicidad</em> — ideas pequeñas, bien definidas, intensamente conectadas. Como ladrillos de LEGO.
+    </div>
+
+    <p>En las próximas pantallas vas a aprender, <strong>haciendo</strong>, cómo funciona. Al final, vas a poder:</p>
+    <ul>
+      <li>Crear y formatear notas en Markdown</li>
+      <li>Conectar ideas con enlaces internos</li>
+      <li>Usar tags para organizar</li>
+      <li>Navegar tu conocimiento con el grafo y los backlinks</li>
+    </ul>
+  `;
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  STEP 1 — MARKDOWN BASICS
+// ═══════════════════════════════════════════════════════════════
+
+function stepMarkdown() {
+  return `
+    <p>En Obsidian, cada nota es un archivo <strong>.md</strong> (Markdown). No hay documentos .docx ni .pdf — texto plano, simple, eterno.</p>
+
+    <p>Escribí abajo y vivi cómo se ve del otro lado:</p>
+
+    <div class="play-actions">
+      <button onclick="insertPlay('**negrita**')"><strong>Negrita</strong></button>
+      <button onclick="insertPlay('*cursiva*')"><em>Cursiva</em></button>
+      <button onclick="insertPlay('# Título')">H1</button>
+      <button onclick="insertPlay('## Título 2')">H2</button>
+      <button onclick="clearPlay()">🗑 Limpiar</button>
+    </div>
+
+    <div class="playground" id="playground1">
+      <textarea id="playInput" placeholder="Escribí Markdown acá... p. ej.: # Mi nota"># Mi primera nota
+
+Esto es **markdown** en acción.
+
+- item 1
+- item 2</textarea>
+      <div class="preview" id="playPreview"></div>
+    </div>
+
+    <div class="tip">
+      <strong>🔑 Concepto clave:</strong> Markdown es un lenguaje de marcado <em>legible incluso en bruto</em>. Abrí un .md en cualquier editor de texto y vas a entender el contenido — no como un .docx.
+    </div>
+  `;
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  STEP 2 — FORMATTING
+// ═══════════════════════════════════════════════════════════════
+
+function stepFormatting() {
+  return `
+    <p>Obsidian soporta <strong>Markdown estándar</strong> más algunas extensiones propias (llamadas <em>Obsidian Flavored Markdown</em>).</p>
+
+    <h3 style="color:var(--accent);margin:16px 0 8px;font-size:1.05rem;">Formato básico</h3>
+
+    <div class="code-block">
+<span class="com">/* Así se escribe cada formato */</span>
+**negrita**      → <strong>negrita</strong>
+*cursiva*        → <em>cursiva</em>
+&#96;código&#96;     → <code>código</code>
+~~tachado~~      → <del>tachado</del>
+==resaltado==    → <mark style="background:var(--accent);color:#1e1e2e;padding:0 4px;border-radius:3px;">resaltado</mark>
+    </div>
+
+    <h3 style="color:var(--accent);margin:16px 0 8px;font-size:1.05rem;">Títulos</h3>
+    <p>Usá <code>#</code> para títulos. Cuantos más <code>#</code>, más chico el nivel:</p>
+    <div class="code-block">
+<span class="com">/* De mayor a menor */</span>
+# Título nivel 1
+## Título nivel 2
+### Título nivel 3
+#### Título nivel 4
+    </div>
+
+    <h3 style="color:var(--accent);margin:16px 0 8px;font-size:1.05rem;">Citas y líneas</h3>
+    <div class="code-block">
+<span class="com">/* Citas */</span>
+> Esto es una cita
+> Puede tener múltiples líneas
+
+<span class="com">/* Línea horizontal */</span>
+---</div>
+
+    <p><strong>Probalo vos mismo:</strong></p>
+    <div class="play-actions">
+      <button onclick="insertPlay('**negrita**')"><strong>B</strong></button>
+      <button onclick="insertPlay('*cursiva*')"><em>I</em></button>
+      <button onclick="insertPlay('&#96;código&#96;')"><code>{ }</code></button>
+      <button onclick="insertPlay('~~tachado~~')">S̶</button>
+      <button onclick="insertPlay('==resaltado==')">==</button>
+      <button onclick="insertPlay('> cita')">⎢</button>
+      <button onclick="clearPlay()">🗑</button>
+    </div>
+    <div class="playground" id="playground2">
+      <textarea id="playInput" placeholder="Probá formatos..."># Título
+
+Esto es **negrita** y esto es *cursiva*.
+
+> Una cita importante
+
+&#96;código inline&#96;</textarea>
+      <div class="preview" id="playPreview"></div>
+    </div>
+  `;
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  STEP 3 — LISTS & CHECKBOXES
+// ═══════════════════════════════════════════════════════════════
+
+function stepLists() {
+  return `
+    <p>Las listas son fundamentales para estructurar ideas. Obsidian soporta tres tipos:</p>
+
+    <h3 style="color:var(--accent);margin:16px 0 8px;font-size:1.05rem;">📋 Listas con viñetas</h3>
+    <div class="code-block">
+- Item uno
+- Item dos
+  - Sub-item anidado (2 espacios)
+  - Otro sub-item
+- Item tres
+    </div>
+
+    <h3 style="color:var(--accent);margin:16px 0 8px;font-size:1.05rem;">🔢 Listas numeradas</h3>
+    <div class="code-block">
+1. Primer paso
+2. Segundo paso
+3. Tercer paso
+    </div>
+
+    <h3 style="color:var(--accent);margin:16px 0 8px;font-size:1.05rem;">☑ Checkboxes</h3>
+    <p>¡Ideales para <strong>task management</strong> directo en tus notas!</p>
+    <div class="code-block">
+- [ ] Tarea pendiente
+- [x] Tarea completada
+- [ ] Otra tarea
+    </div>
+
+    <div class="tip tip-green">
+      <strong>⚡ Tip:</strong> En Obsidian, hacé <kbd>Ctrl/Cmd</kbd> + <kbd>Enter</kbd> sobre un checkbox para marcarlo/desmarcarlo.
+    </div>
+
+    <p><strong>Probalo:</strong></p>
+    <div class="play-actions">
+      <button onclick="insertPlay('- item\n')">• Lista</button>
+      <button onclick="insertPlay('1. item\n')">1. Lista</button>
+      <button onclick="insertPlay('- [ ] tarea\n')">☐ Task</button>
+      <button onclick="clearPlay()">🗑</button>
+    </div>
+    <div class="playground" id="playground3">
+      <textarea id="playInput" placeholder="Probá listas...">- [x] Aprender Markdown
+- [ ] Crear mi primer vault
+- [ ] Conectar notas con [[enlaces]]
+
+Cosas que me gustan:
+1. Programar
+2. Leer
+3. Café</textarea>
+      <div class="preview" id="playPreview"></div>
+    </div>
+  `;
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  STEP 4 — INTERNAL LINKS [[ ]]
+// ═══════════════════════════════════════════════════════════════
+
+function stepLinks() {
+  return `
+    <p>El <strong>corazón</strong> de Obsidian son los enlaces internos. Con <code>[[nombre de nota]]</code> creás un vínculo a otra nota.</p>
+
+    <div class="code-block">
+<span class="com">/* Enlace básico */</span>
+Muy interesante lo que dice [[Marie Curie]] sobre la radiactividad.
+
+<span class="com">/* Con alias (lo que se ve ≠ lo que linkea) */</span>
+Según [[Marie Curie|su investigación]], el polonio es...
+
+<span class="com">/* Linkeá a un bloque/encabezado */</span>
+Ver [[Cuántica#Principio de incertidumbre]]
+    </div>
+
+    <div class="tip">
+      <strong>💡 Tip:</strong> Cuando empezás a escribir <code>[[</code>, Obsidian te muestra un autocompletado con todas tus notas. No necesitás recordar nombres exactos.
+    </div>
+
+    <p><strong>👉 Cliqueá las notas para conectarlas</strong> y creá tu propia red de conocimiento:</p>
+
+    <div class="link-sim" id="linkSim">
+      <div class="note-tag" data-note="Marie Curie" onclick="toggleLink(this)">Marie Curie <span class="badge">0</span></div>
+      <div class="note-tag" data-note="Radiactividad" onclick="toggleLink(this)">Radiactividad <span class="badge">0</span></div>
+      <div class="note-tag" data-note="Polonio" onclick="toggleLink(this)">Polonio <span class="badge">0</span></div>
+      <div class="note-tag" data-note="Premios Nobel" onclick="toggleLink(this)">Premios Nobel <span class="badge">0</span></div>
+      <div class="note-tag" data-note="Física Cuántica" onclick="toggleLink(this)">Física Cuántica <span class="badge">0</span></div>
+    </div>
+
+    <div class="link-result" id="linkResult">
+      <div class="empty-state">🔗 Cliqueá una nota para "linkearla" desde "Nota Actual"</div>
+    </div>
+
+    <p style="margin-top:12px;font-size:.88rem;color:var(--text2);">
+      ✅ Cada nota que cliqueás crea un enlace <code>[[Nota]]</code>. Los backlinks se generan automáticamente.
+    </p>
+  `;
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  STEP 5 — BACKLINKS
+// ═══════════════════════════════════════════════════════════════
+
+function stepBacklinks() {
+  return `
+    <p>Los <strong>backlinks</strong> son enlaces <em>hacia atrás</em>: te muestran qué notas están linkeando a la nota actual.</p>
+
+    <div class="tip tip-green">
+      <strong>🔍 Esto es revolucionario:</strong> Mientras leés una nota, el panel de backlinks te muestra <em>todas las otras notas que mencionan a esta</em>. Descubrís conexiones que ni sabías que existían.
+    </div>
+
+    <p>En Obsidian, los backlinks aparecen en un panel lateral. Acá te muestro cómo funciona:</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0;">
+      <div style="background:#16162a;border:1px solid var(--border);border-radius:8px;padding:14px;">
+        <div style="font-size:.78rem;color:var(--text2);margin-bottom:8px;">📄 Nota actual</div>
+        <div style="font-size:.9rem;font-weight:600;color:var(--accent);margin-bottom:6px;">🧪 Radiactividad</div>
+        <div style="font-size:.82rem;color:var(--text);line-height:1.5;">
+          La radiactividad fue descubierta por [[Marie Curie]].
+          El [[Polonio]] es un elemento radiactivo.
+        </div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;">
+        <div style="font-size:.78rem;color:var(--text2);margin-bottom:8px;">↩ Backlinks (2)</div>
+        <div id="backlinkList">
+          <div style="padding:6px 0;border-bottom:1px solid var(--border);font-size:.85rem;">
+            <span style="color:var(--accent);font-weight:600;">📄 Marie Curie</span>
+            <div style="color:var(--text2);font-size:.78rem;margin-top:2px;">"...descubrió la <em>radiactividad</em>..."</div>
+          </div>
+          <div style="padding:6px 0;font-size:.85rem;">
+            <span style="color:var(--accent);font-weight:600;">📄 Premios Nobel</span>
+            <div style="color:var(--text2);font-size:.78rem;margin-top:2px;">"...compartió el Nobel con otros científicos por estudios de <em>radiactividad</em>..."</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip">
+      <strong>🧠 Dato:</strong> El panel de backlinks en Obsidian tiene dos modos: <strong>"Collapsed"</strong> (solo muestra qué notas linkean) y <strong>"Expanded"</strong> (muestra el contexto alrededor del enlace, para que no tengas que abrir la nota).
+    </div>
+
+    <p>¿La parte más loca? <strong>Los backlinks son automáticos.</strong> No tenés que hacer nada — apenas creás un <code>[[enlace]]</code>, el backlink aparece solo del otro lado. Es magia de grafos.</p>
+  `;
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  STEP 6 — TAGS
+// ═══════════════════════════════════════════════════════════════
+
+function stepTags() {
+  return `
+    <p>Los <strong>tags</strong> son otra forma de organizar tus notas. Se escriben inline con <code>#etiqueta</code>.</p>
+
+    <div class="code-block">
+<span class="com">/* Tags simples */</span>
+Hoy aprendí sobre fotosíntesis #biología #ciencia
+
+<span class="com">/* Tags anidadas (jerarquía) */</span>
+#programación/web/frontend
+#programación/web/backend
+
+<span class="com">/* Tags con espacios (usando guiones) */</span>
+#machine-learning
+    </div>
+
+    <div class="tip tip-orange">
+      <strong>🔎 Tags vs. Enlaces:</strong> Los <strong>tags</strong> son categorías planas (o jerárquicas). Los <strong>enlaces</strong> son conexiones semánticas entre ideas. Se complementan. Usá tags para <em>clasificar</em> y enlaces para <em>conectar</em>.
+    </div>
+
+    <p><strong>👉 Cliqueá un tag para filtrar notas:</strong></p>
+
+    <div class="tag-cloud" id="tagCloud">
+      <span class="tag-item" data-tag="biología" onclick="filterTag(this)">#biología <span class="count">3</span></span>
+      <span class="tag-item" data-tag="ciencia" onclick="filterTag(this)">#ciencia <span class="count">4</span></span>
+      <span class="tag-item" data-tag="programación" onclick="filterTag(this)">#programación <span class="count">2</span></span>
+      <span class="tag-item" data-tag="historia" onclick="filterTag(this)">#historia <span class="count">2</span></span>
+      <span class="tag-item" data-tag="filosofía" onclick="filterTag(this)">#filosofía <span class="count">1</span></span>
+    </div>
+
+    <div class="tag-filtered" id="tagFiltered">
+      <span style="color:var(--text2);font-style:italic;">💡 Cliqueá un tag para ver qué notas lo tienen</span>
+    </div>
+
+    <p style="margin-top:12px;font-size:.88rem;color:var(--text2);">
+      En Obsidian, el panel de tags los agrupa y te muestra cuántas notas tienen cada uno. También podés buscarlos con <code>tag:#biología</code> en la búsqueda.
+    </p>
+  `;
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  TAGS — data
+// ═══════════════════════════════════════════════════════════════
+
+const tagNotes = {
+  'biología': ['Fotosíntesis', 'ADN y Genética', 'Ecosistemas'],
+  'ciencia': ['Fotosíntesis', 'Radiactividad', 'ADN y Genética', 'Gravedad Cuántica'],
+  'programación': ['Algoritmos de Búsqueda', 'Clean Code'],
+  'historia': ['Revolución Francesa', 'Imperio Romano'],
+  'filosofía': ['El Mito de la Caverna'],
+};
+
+let activeTag = null;
+
+// ═══════════════════════════════════════════════════════════════
+//  STEP 7 — GRAPH VIEW
+// ═══════════════════════════════════════════════════════════════
+
+function stepGraph() {
+  return `
+    <p>La <strong>vista de grafo</strong> es quizás la feature más icónica de Obsidian. Cada nota es un nodo, cada enlace una conexión.</p>
+
+    <div class="tip">
+      <strong>◉ No es una feature decorativa:</strong> El grafo te permite descubrir <em>clusters</em> de conocimiento, notas huérfanas (sin conexiones), y patrones en tu forma de pensar que de otra forma serían invisibles.
+    </div>
+
+    <p>Acá abajo tenés un grafo <strong>interactivo</strong> — arrastrá los nodos y explorá las conexiones:</p>
+
+    <div class="graph-container" id="graphContainer">
+      <canvas id="graphCanvas"></canvas>
+      <div class="graph-legend">
+        <span><span class="dot" style="background:var(--accent);"></span> Nota activa</span>
+        <span><span class="dot" style="background:var(--green);"></span> Conectada</span>
+        <span><span class="dot" style="background:var(--text2);"></span> Sin conexión</span>
+        <span><span class="dot" style="background:var(--pink);width:4px;height:4px;border-radius:2px;"></span> Enlace</span>
+        <span style="color:var(--text2);">🖱 Arrastrá los nodos</span>
+      </div>
+    </div>
+
+    <p style="margin-top:8px;font-size:.88rem;color:var(--text2);">
+      💡 Este grafo representa un mini vault de ejemplo. En tu Obsidian real, cada punto es una nota tuya.
+    </p>
+  `;
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  STEP 8 — SEARCH
+// ═══════════════════════════════════════════════════════════════
+
+function stepSearch() {
+  return `
+    <p>Obsidian tiene un sistema de búsqueda <strong>poderosísimo</strong>. No es solo buscar texto — soporta operadores avanzados.</p>
+
+    <div class="kbd-shortcuts">
+      <kbd>Ctrl/Cmd + O</kbd> <span>Abrir nota rápidamente (paleta de comandos)</span>
+      <kbd>Ctrl/Cmd + F</kbd> <span>Buscar en la nota actual</span>
+      <kbd>Ctrl/Cmd + Shift + F</kbd> <span>Buscar en todo el vault</span>
+      <kbd>Ctrl/Cmd + P</kbd> <span>Paleta de comandos (todo lo que podés hacer)</span>
+    </div>
+
+    <h3 style="color:var(--accent);margin:20px 0 8px;font-size:1.05rem;">🔍 Operadores de búsqueda avanzada</h3>
+    <div class="code-block">
+<span class="com">/* Búsqueda exacta */</span>
+"efecto mariposa"
+
+<span class="com">/* Excluir palabras */</span>
+caos -determinista
+
+<span class="com">/* Buscar por tag */</span>
+tag:#biología
+
+<span class="com">/* Buscar en el nombre del archivo */</span>
+file:"Marie Curie"
+
+<span class="com">/* Buscar por path */</span>
+path:"Ciencias/Naturales"
+
+<span class="com">/* Combinar operadores */</span>
+tag:#ciencia "radiactividad" -file:"tarea"
+    </div>
+
+    <p><strong>👉 Probá el buscador simulado:</strong></p>
+
+    <div style="margin:12px 0;">
+      <input type="text" id="searchInput"
+             placeholder='Buscá: "radiactividad", tag:#ciencia, #biología, "Marie"...'
+             style="width:100%;font-family:var(--font);font-size:.9rem;padding:12px 16px;
+                    background:#16162a;border:1px solid var(--border);border-radius:8px;
+                    color:var(--text);outline:none;">
+    </div>
+
+    <div class="link-result" id="searchResult">
+      <div class="empty-state">🔍 Escribí algo para buscar entre las notas de ejemplo</div>
+    </div>
+
+    <div class="tip tip-green">
+      <strong>⚡ Power user:</strong> Aprendete <kbd>Ctrl/Cmd + O</kbd>. Es la forma más rápida de navegar entre notas sin sacar las manos del teclado.
+    </div>
+  `;
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  SEARCH DATA
+// ═══════════════════════════════════════════════════════════════
+
+const searchNotes = [
+  { name: 'Marie Curie', tags: ['ciencia'], content: 'Descubrió la radiactividad junto con Pierre Curie.' },
+  { name: 'Radiactividad', tags: ['ciencia'], content: 'Fenómeno físico por el cual ciertos elementos emiten radiación.' },
+  { name: 'Polonio', tags: ['ciencia'], content: 'Elemento químico descubierto por Marie Curie, nombrado así por su tierra natal, Polonia.' },
+  { name: 'Fotosíntesis', tags: ['biología', 'ciencia'], content: 'Proceso por el cual las plantas convierten luz solar en energía química.' },
+  { name: 'ADN y Genética', tags: ['biología', 'ciencia'], content: 'El ADN contiene la información genética de todos los seres vivos.' },
+  { name: 'Revolución Francesa', tags: ['historia'], content: 'Período de cambio social y político radical en Francia entre 1789 y 1799.' },
+  { name: 'Imperio Romano', tags: ['historia'], content: 'Fue el período de la civilización romana posterior a la República Romana.' },
+  { name: 'Algoritmos de Búsqueda', tags: ['programación'], content: 'Métodos para encontrar información dentro de una estructura de datos.' },
+  { name: 'Clean Code', tags: ['programación'], content: 'Filosofía de desarrollo que enfatiza escribir código legible y mantenible.' },
+  { name: 'El Mito de la Caverna', tags: ['filosofía'], content: 'Alegoría de Platón sobre el conocimiento y la realidad.' },
+];
+
+// ═══════════════════════════════════════════════════════════════
+//  STEP 9 — NEXT STEPS
+// ═══════════════════════════════════════════════════════════════
+
+function stepNext() {
+  return `
+    <p>🎉 ¡Llegaste al final del tutorial! Ya tenés las bases para arrancar con Obsidian.</p>
+
+    <div class="completion-badge">
+      <div class="icon">✓</div>
+      <div>
+        <h3>Tutorial completado</h3>
+        <p>Ahora sabés crear notas, formatearlas, linkearlas, usar tags, y navegar el grafo.</p>
+      </div>
+    </div>
+
+    <h3 style="color:var(--accent);margin:20px 0 10px;font-size:1.1rem;">🚀 Próximos pasos</h3>
+
+    <ul>
+      <li><strong>Descargá Obsidian</strong> gratis en <a class="ext-link" href="https://obsidian.md/download" target="_blank">obsidian.md/download</a></li>
+      <li><strong>Creá tu primer vault</strong> — una carpeta vacía es todo lo que necesitás</li>
+      <li><strong>Descargá estos plugins</strong> para arrancar con el pie derecho:
+        <ul>
+          <li>Calendar — calendario lateral para notas diarias</li>
+          <li>Dataview — consultá tus notas como si fuera una base de datos</li>
+          <li>Templater — plantillas poderosas para notas nuevas</li>
+          <li>Kanban — tableros kanban dentro de Obsidian</li>
+          <li>Excalidraw — dibujos y diagramas manuales</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3 style="color:var(--accent);margin:20px 0 10px;font-size:1.1rem;">📚 Recursos</h3>
+    <ul>
+      <li><a class="ext-link" href="https://help.obsidian.md" target="_blank">Documentación oficial</a> — la guía completa</li>
+      <li><a class="ext-link" href="https://forum.obsidian.md" target="_blank">Foro de Obsidian</a> — comunidad activa</li>
+      <li><a class="ext-link" href="https://obsidian.md/plugins" target="_blank">Plugins comunitarios</a> — +1500 plugins</li>
+    </ul>
+
+    <div class="tip">
+      <strong>🧠 Principio rector:</strong> No trates de armar el vault perfecto desde el día 1. Escribí, conectá, y deja que el grafo crezca orgánicamente. La estructura emerge sola.
+    </div>
+
+    <p style="text-align:center;margin-top:24px;color:var(--text2);">
+      Hecho con ❤️ para la comunidad. — <a class="ext-link" href="https://obsidian.md" target="_blank">obsidian.md</a>
+    </p>
+  `;
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  COMPLETION
+// ═══════════════════════════════════════════════════════════════
+
+function showCompletion() {
+  STEPS.forEach((_, i) => completed.add(i));
+  renderDots();
+  // Navigate to last step
+  goTo(STEPS.length - 1);
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  PLAYGROUND — shared markdown renderer
+// ═══════════════════════════════════════════════════════════════
+
+function initPlayground() {
+  // Each playground uses its own textarea, but they share IDs...
+  // We need to be smarter. Find the visible playground.
+  const container = document.getElementById('stepContainer');
+  const playground = container.querySelector('.playground');
+  if (!playground) return;
+
+  const textarea = playground.querySelector('#playInput') || playground.querySelector('textarea');
+  const preview = playground.querySelector('#playPreview') || playground.querySelector('.preview');
+  if (!textarea || !preview) return;
+
+  // Remove old listeners by cloning
+  const newTA = textarea.cloneNode(true);
+  textarea.parentNode.replaceChild(newTA, textarea);
+
+  newTA.addEventListener('input', () => renderMarkdown(newTA.value, preview));
+  renderMarkdown(newTA.value, preview);
+}
+
+function renderMarkdown(src, el) {
+  let html = src
+    // Escaping
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    // Headings
+    .replace(/^#### (.+)$/gm, '<h4>$1</h4>')
+    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+    .replace(/^# (.+)$/gm, '<h1>$1</h1>')
+    // Horizontal rule
+    .replace(/^---$/gm, '<hr style="border:none;border-top:2px solid var(--border);margin:12px 0;">')
+    // Blockquotes
+    .replace(/^&gt; (.+)$/gm, '<blockquote>$1</blockquote>')
+    // Checkboxes
+    .replace(/- \[x\] (.+)/gi, '<label style="display:block;font-size:.88rem;"><input type="checkbox" checked disabled> $1</label>')
+    .replace(/- \[ \] (.+)/gi, '<label style="display:block;font-size:.88rem;"><input type="checkbox" disabled> $1</label>')
+    // Unordered list items (that aren't checkboxes)
+    .replace(/^- (.+)$/gm, '<li>$1</li>')
+    // Ordered list items
+    .replace(/^\d+\.\s(.+)$/gm, '<li>$1</li>')
+    // Wrap consecutive <li> in <ul> or <ol>
+    .replace(/((?:<li>.*<\/li>\n?)+)/g, (match) => {
+      // Determine if it's ordered or unordered based on original text (checkboxes already handled)
+      // Default to ul for simplicity
+      return '<ul style="margin-bottom:8px;">' + match + '</ul>';
+    })
+    // Bold
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    // Italic
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    // Strikethrough
+    .replace(/~~(.+?)~~/g, '<del>$1</del>')
+    // Highlight (==text==)
+    .replace(/==(.+?)==/g, '<mark style="background:var(--accent);color:#1e1e2e;padding:0 4px;border-radius:3px;">$1</mark>')
+    // Inline code (must be before bold/italic in general, but after the escape replacements)
+    .replace(/`(.+?)`/g, '<code>$1</code>')
+    // Wiki links [[Note]] or [[Note|alias]]
+    .replace(/\[\[(.+?)\]\]/g, '<span style="color:var(--accent);font-weight:600;cursor:default;" title="Enlace a: $1">⟦$1⟧</span>')
+    // Regular links
+    .replace(/\[(.+?)\]\((.+?)\)/g, '<a class="ext-link" href="$2" target="_blank">$1</a>')
+    // Line breaks (double newline = paragraph)
+    .replace(/\n\n/g, '</p><p>')
+    // Single line breaks
+    .replace(/\n/g, '<br>');
+
+  el.innerHTML = '<p>' + html + '</p>';
+}
+
+function insertPlay(text) {
+  const container = document.getElementById('stepContainer');
+  const ta = container.querySelector('textarea');
+  if (!ta) return;
+  const start = ta.selectionStart;
+  const end = ta.selectionEnd;
+  const before = ta.value.substring(0, start);
+  const after = ta.value.substring(end);
+  ta.value = before + text + after;
+  ta.selectionStart = ta.selectionEnd = start + text.length;
+  ta.focus();
+  ta.dispatchEvent(new Event('input'));
+}
+
+function clearPlay() {
+  const container = document.getElementById('stepContainer');
+  const ta = container.querySelector('textarea');
+  if (!ta) return;
+  ta.value = '';
+  ta.dispatchEvent(new Event('input'));
+  ta.focus();
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  LINKS DEMO
+// ═══════════════════════════════════════════════════════════════
+
+function toggleLink(el) {
+  const note = el.dataset.note;
+  if (linkedNotes.has(note)) {
+    linkedNotes.delete(note);
+    el.classList.remove('linked');
+  } else {
+    linkedNotes.add(note);
+    el.classList.add('linked');
+  }
+  updateLinkBadges();
+  updateLinkResult();
+}
+
+function updateLinkBadges() {
+  document.querySelectorAll('.note-tag').forEach(el => {
+    const badge = el.querySelector('.badge');
+    if (!badge) return;
+    const count = linkedNotes.has(el.dataset.note) ? 1 : 0;
+    badge.textContent = count;
+  });
+}
+
+function updateLinkResult() {
+  const result = document.getElementById('linkResult');
+  if (!result) return;
+  if (linkedNotes.size === 0) {
+    result.innerHTML = `<div class="empty-state">🔗 Cliqueá una nota para "linkearla" desde "Nota Actual"</div>`;
+    return;
+  }
+  let html = `<div style="font-size:.82rem;color:var(--text2);margin-bottom:8px;">🔗 Enlaces creados desde <strong style="color:var(--accent);">Nota Actual</strong>:</div>`;
+  linkedNotes.forEach(note => {
+    html += `<div class="link-item">
+      <span><span class="from">📄 Nota Actual</span><span class="arrow">→</span><span class="to">📄 ${note}</span></span>
+      <code style="font-size:.75rem;">[[${note}]]</code>
+    </div>`;
+  });
+  const backlinksCount = linkedNotes.size;
+  if (backlinksCount > 0) {
+    html += `<div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border);font-size:.82rem;color:var(--text2);">
+      ↩️ <strong style="color:var(--green);">${backlinksCount} backlink${backlinksCount > 1 ? 's' : ''}</strong> generados automáticamente
+    </div>`;
+  }
+  result.innerHTML = html;
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  BACKLINKS DEMO — purely visual, in the static HTML
+// ═══════════════════════════════════════════════════════════════
+
+function initBacklinksDemo() {
+  // Nothing dynamic needed — the static HTML already shows the demo
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  TAGS DEMO
+// ═══════════════════════════════════════════════════════════════
+
+function filterTag(el) {
+  const tag = el.dataset.tag;
+  const filtered = document.getElementById('tagFiltered');
+  if (!filtered) return;
+
+  // Toggle off if same tag clicked
+  if (activeTag === tag) {
+    activeTag = null;
+    document.querySelectorAll('.tag-item').forEach(t => t.style.background = '');
+    filtered.innerHTML = '<span style="color:var(--text2);font-style:italic;">💡 Cliqueá un tag para ver qué notas lo tienen</span>';
+    return;
+  }
+
+  activeTag = tag;
+  document.querySelectorAll('.tag-item').forEach(t => {
+    t.style.background = t.dataset.tag === tag ? 'rgba(166,136,255,.25)' : '';
+  });
+
+  const notes = tagNotes[tag] || [];
+  let html = `<div style="font-size:.82rem;color:var(--text2);margin-bottom:8px;">📄 Notas con <strong style="color:var(--accent);">#${tag}</strong>:</div>`;
+  notes.forEach(n => {
+    html += `<div class="note-row">📄 <span class="highlight">${n}</span></div>`;
+  });
+  if (notes.length === 0) {
+    html += `<div class="note-row" style="color:var(--text2);">(sin notas)</div>`;
+  }
+  filtered.innerHTML = html;
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  GRAPH — force-directed canvas
+// ═══════════════════════════════════════════════════════════════
+
+const graphData = {
+  nodes: [
+    { id: 'active', label: 'Nota Actual', group: 'active' },
+    { id: 'marie', label: 'Marie Curie', group: 'connected' },
+    { id: 'radio', label: 'Radiactividad', group: 'connected' },
+    { id: 'polonio', label: 'Polonio', group: 'connected' },
+    { id: 'nobel', label: 'Premios Nobel', group: 'connected' },
+    { id: 'fisica', label: 'Física Cuántica', group: 'lonely' },
+    { id: 'fotosin', label: 'Fotosíntesis', group: 'lonely' },
+    { id: 'adn', label: 'ADN y Genética', group: 'lonely' },
+    { id: 'revol', label: 'Rev. Francesa', group: 'lonely' },
+    { id: 'algo', label: 'Algoritmos', group: 'lonely' },
+  ],
+  edges: [
+    { s: 'active', t: 'marie' },
+    { s: 'active', t: 'radio' },
+    { s: 'active', t: 'polonio' },
+    { s: 'marie', t: 'radio' },
+    { s: 'marie', t: 'polonio' },
+    { s: 'marie', t: 'nobel' },
+    { s: 'radio', t: 'polonio' },
+    { s: 'radio', t: 'fisica' },
+  ]
+};
+
+const nodeColors = { active: '#a688ff', connected: '#7ecf8a', lonely: '#6a6a8a' };
+let graphRunning = false;
+
+function initGraph() {
+  const canvas = document.getElementById('graphCanvas');
+  if (!canvas) return;
+
+  const container = document.getElementById('graphContainer');
+  const rect = container.getBoundingClientRect();
+  const W = canvas.parentElement.clientWidth;
+  const H = canvas.parentElement.clientHeight || 340;
+
+  canvas.width = W * 2; // Retina
+  canvas.height = H * 2;
+  canvas.style.width = W + 'px';
+  canvas.style.height = H + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(2, 2);
+
+  // Init node positions if not set
+  if (!graphNodes.length) {
+    const cx = W / 2, cy = H / 2;
+    graphNodes = graphData.nodes.map((n, i) => ({
+      ...n,
+      x: cx + (Math.random() - 0.5) * (W * 0.6),
+      y: cy + (Math.random() - 0.5) * (H * 0.6),
+      vx: 0, vy: 0,
+      r: n.id === 'active' ? 14 : 9,
+    }));
+    graphEdges = graphData.edges;
+  }
+
+  if (graphRunning) return;
+  graphRunning = true;
+
+  let isDragging = false;
+  let dragNode = null;
+  let dragOffX = 0, dragOffY = 0;
+
+  const getMouse = (e) => {
+    const r = canvas.getBoundingClientRect();
+    const t = e.touches ? e.touches[0] : e;
+    return { x: t.clientX - r.left, y: t.clientY - r.top };
+  };
+
+  const hitTest = (mx, my) => {
+    for (let i = graphNodes.length - 1; i >= 0; i--) {
+      const n = graphNodes[i];
+      const dx = mx - n.x, dy = my - n.y;
+      if (dx * dx + dy * dy < (n.r + 6) * (n.r + 6)) return n;
+    }
+    return null;
+  };
+
+  canvas.onmousedown = (e) => {
+    const m = getMouse(e);
+    const hit = hitTest(m.x, m.y);
+    if (hit) {
+      isDragging = true;
+      dragNode = hit;
+      dragOffX = m.x - hit.x;
+      dragOffY = m.y - hit.y;
+    }
+  };
+
+  window.onmousemove = (e) => {
+    if (!isDragging || !dragNode) return;
+    const m = getMouse(e);
+    dragNode.x = m.x - dragOffX;
+    dragNode.y = m.y - dragOffY;
+    dragNode.vx = 0;
+    dragNode.vy = 0;
+  };
+
+  window.onmouseup = () => {
+    isDragging = false;
+    dragNode = null;
+  };
+
+  // touch
+  canvas.ontouchstart = (e) => {
+    e.preventDefault();
+    const m = getMouse(e);
+    const hit = hitTest(m.x, m.y);
+    if (hit) {
+      isDragging = true;
+      dragNode = hit;
+      dragOffX = m.x - hit.x;
+      dragOffY = m.y - hit.y;
+    }
+  };
+  canvas.ontouchmove = (e) => {
+    e.preventDefault();
+    if (!isDragging || !dragNode) return;
+    const m = getMouse(e);
+    dragNode.x = m.x - dragOffX;
+    dragNode.y = m.y - dragOffY;
+    dragNode.vx = 0;
+    dragNode.vy = 0;
+  };
+  canvas.ontouchend = (e) => {
+    e.preventDefault();
+    isDragging = false;
+    dragNode = null;
+  };
+
+  function simulate() {
+    // Forces
+    const Ww = W, Hh = H;
+    const centerX = Ww / 2, centerY = Hh / 2;
+    const repulsion = 6000;
+    const attraction = 0.003;
+    const damping = 0.85;
+    const minDist = 35;
+
+    // Center gravity
+    for (const n of graphNodes) {
+      n.vx += (centerX - n.x) * 0.0005;
+      n.vy += (centerY - n.y) * 0.0005;
+    }
+
+    // Repulsion between all nodes
+    for (let i = 0; i < graphNodes.length; i++) {
+      for (let j = i + 1; j < graphNodes.length; j++) {
+        const a = graphNodes[i], b = graphNodes[j];
+        let dx = b.x - a.x, dy = b.y - a.y;
+        let dist = Math.sqrt(dx * dx + dy * dy) || 1;
+        if (dist < minDist) dist = minDist;
+        const force = repulsion / (dist * dist);
+        const fx = (dx / dist) * force;
+        const fy = (dy / dist) * force;
+        a.vx -= fx; a.vy -= fy;
+        b.vx += fx; b.vy += fy;
+      }
+    }
+
+    // Edge attraction
+    for (const e of graphEdges) {
+      const a = graphNodes.find(n => n.id === e.s);
+      const b = graphNodes.find(n => n.id === e.t);
+      if (!a || !b) continue;
+      const dx = b.x - a.x, dy = b.y - a.y;
+      const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+      const force = (dist - 80) * attraction;
+      const fx = (dx / dist) * force;
+      const fy = (dy / dist) * force;
+      a.vx += fx; a.vy += fy;
+      b.vx -= fx; b.vy -= fy;
+    }
+
+    // Apply velocity
+    for (const n of graphNodes) {
+      if (n === dragNode) continue;
+      n.vx *= damping;
+      n.vy *= damping;
+      n.x += n.vx;
+      n.y += n.vy;
+      // Bounds
+      n.x = Math.max(20, Math.min(Ww - 20, n.x));
+      n.y = Math.max(20, Math.min(Hh - 20, n.y));
+    }
+
+    draw(ctx, W, Hh);
+    if (graphRunning) graphAnimId = requestAnimationFrame(simulate);
+  }
+
+  simulate();
+}
+
+function draw(ctx, W, H) {
+  ctx.clearRect(0, 0, W, H);
+
+  // Edges
+  for (const e of graphEdges) {
+    const a = graphNodes.find(n => n.id === e.s);
+    const b = graphNodes.find(n => n.id === e.t);
+    if (!a || !b) continue;
+    ctx.beginPath();
+    ctx.moveTo(a.x, a.y);
+    ctx.lineTo(b.x, b.y);
+    ctx.strokeStyle = 'rgba(166,136,255,0.2)';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+  }
+
+  // Nodes
+  for (const n of graphNodes) {
+    // Glow
+    const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r * 3);
+    const baseColor = nodeColors[n.group] || '#6a6a8a';
+    grad.addColorStop(0, baseColor + '30');
+    grad.addColorStop(1, 'transparent');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.r * 3, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Circle
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+    ctx.fillStyle = nodeColors[n.group] || '#6a6a8a';
+    ctx.fill();
+    if (n.group === 'active') {
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
+    // Label
+    ctx.fillStyle = '#e0e0f0';
+    ctx.font = '11px Inter, system-ui, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(n.label, n.x, n.y + n.r + 16);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  SEARCH DEMO
+// ═══════════════════════════════════════════════════════════════
+
+function initSearchDemo() {
+  const input = document.getElementById('searchInput');
+  if (!input) return;
+
+  let timeout = null;
+  input.addEventListener('input', () => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => doSearch(input.value), 150);
+  });
+}
+
+function doSearch(query) {
+  const result = document.getElementById('searchResult');
+  if (!result) return;
+
+  const q = query.trim().toLowerCase();
+  if (!q) {
+    result.innerHTML = '<div class="empty-state">🔍 Escribí algo para buscar entre las notas de ejemplo</div>';
+    return;
+  }
+
+  // Parse operators
+  let tagFilter = null;
+  let exactPhrase = null;
+  let excludeWords = [];
+  let searchTerms = [];
+
+  // tag:#something
+  const tagMatch = q.match(/tag:(\S+)/);
+  if (tagMatch) {
+    tagFilter = tagMatch[1].replace(/^#/, '');
+  }
+
+  // "exact phrase"
+  const phraseMatch = q.match(/"([^"]+)"/);
+  if (phraseMatch) {
+    exactPhrase = phraseMatch[1].toLowerCase();
+  }
+
+  // -exclude
+  const excludeMatches = q.match(/-(\w+)/g);
+  if (excludeMatches) {
+    excludeWords = excludeMatches.map(m => m.slice(1).toLowerCase());
+  }
+
+  // Remaining words
+  let cleaned = q
+    .replace(/tag:\S+/g, '')
+    .replace(/"([^"]+)"/g, '')
+    .replace(/-\w+/g, '')
+    .trim();
+  searchTerms = cleaned.split(/\s+/).filter(Boolean);
+
+  let results = [...searchNotes];
+
+  // Filter by tag
+  if (tagFilter) {
+    results = results.filter(r =>
+      r.tags.some(t => t.toLowerCase() === tagFilter.toLowerCase())
+    );
+  }
+
+  // Filter by exact phrase
+  if (exactPhrase) {
+    results = results.filter(r => r.content.toLowerCase().includes(exactPhrase)
+      || r.name.toLowerCase().includes(exactPhrase));
+  }
+
+  // Filter by search terms
+  if (searchTerms.length > 0) {
+    results = results.filter(r => {
+      const text = (r.name + ' ' + r.content).toLowerCase();
+      return searchTerms.every(t => text.includes(t));
+    });
+  }
+
+  // Exclude
+  if (excludeWords.length > 0) {
+    results = results.filter(r => {
+      const text = (r.name + ' ' + r.content).toLowerCase();
+      return !excludeWords.some(w => text.includes(w));
+    });
+  }
+
+  if (results.length === 0) {
+    result.innerHTML = `<div class="empty-state">🔍 Sin resultados para "${query}"</div>`;
+    return;
+  }
+
+  let html = `<div style="font-size:.82rem;color:var(--text2);margin-bottom:8px;">🔍 ${results.length} resultado${results.length > 1 ? 's' : ''} para "${query}":</div>`;
+  results.forEach(r => {
+    html += `<div class="link-item">
+      <span><span class="from">📄 ${r.name}</span> <span style="color:var(--text2);font-size:.78rem;">#${r.tags.join(' #')}</span></span>
+      <span style="color:var(--text2);font-size:.78rem;">${r.content.length > 50 ? r.content.slice(0, 50) + '…' : r.content}</span>
+    </div>`;
+  });
+  result.innerHTML = html;
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════════════════
+
+renderStep();
+</script>
+</body>
+</html>
